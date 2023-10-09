@@ -29,7 +29,6 @@ DELETE | /user/me   | YES   | user | Delete own profile       |                 
 
 METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
 -------|------------------|-------|------|--------------------------|-------------------------------------------------|--------------------
-
 GET    | /device/me            | YES   | user | See my Device Info         |                             | { device }
 GET    | /device/:userId    | YES   | doctor | See any Device Info          |                                            | { device }
 GET    | /device/all            | YES   | doctor | See all Device Info          |    `query params`                     | [{device}]
