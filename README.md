@@ -25,6 +25,20 @@ PUT    | /user/:userId       | YES   | admin | Update one user         |  `first
 DELETE | /user/:userId      | YES   | admin | Delete one user         |                                                   | {message: 'User deleted'}
 DELETE | /user/me   | YES   | user | Delete own profile       |                                                    | { message: 'Profile deleted' }
 
+### Device Endpoints
+
+METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
+-------|------------------|-------|------|--------------------------|-------------------------------------------------|--------------------
+GET    | /device/me            | YES   | user | See my Device Info         |                             | { device }
+GET    | /device/:userId    | YES   | doctor | See any Device Info          |                                            | { device }
+GET    | /device/all            | YES   | doctor | See all Device Info          |    `query params`                     | [{device}]
+POST   | /device     | YES      | user | Create Own Device Info             |  | {device}
+POST   | /device/:userId     | YES      | doctor | Create a specific Device Info             |  | {device}
+PUT   | /device/me    | YES      | user | Update own Device Info             |                            | {message: 'Device Info have been updated'}
+PUT   | /device/:userId    | YES      | doctor | Update a specific Device Info             |                            | {message: 'Device Info have been updated'}
+DELETE   | /device/me    | YES      | user | Delete own Device Info          |                            | {message: 'Device Info have been deleted'}
+DELETE   | /device/:userId    | YES      | doctor | Delete a specific Device Info          |                            | {message: 'Device Info have been deleted'}
+
 ### Medical Info Endpoints
 
 METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
@@ -50,7 +64,7 @@ POST   | /comment     | YES      | user | Create a comment              |  | {co
 POST   | /comment/:userId   | YES      | doctor | Create a comment              |  | {comment}
 PUT   | /comment/me/:commentId    | YES      | user | Update own comment              |                            | {message: 'Your comment have been updated'}
 PUT   | /comment/:commentId    | YES      | doctor | Update a specific comment              |                            | {message: 'The comment have been updated'}
-DELETE   | /comment/me/:commentId    | YES      | user | Delete a specific comment             |                            | {message: 'Comment deleted'}
+DELETE   | /comment/me/:commentId    | YES      | user | Delete own comment             |                            | {message: 'Comment deleted'}
 DELETE   | /comment/:commentId     | YES      | doctor | Delete a specific comment             |                            | {message: 'Comment deleted'}
 
 ### Objetive Endpoints
