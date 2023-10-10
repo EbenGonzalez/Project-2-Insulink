@@ -49,19 +49,32 @@ async function createUser(req, res) {
 
 async function updateUser(req, res) {
   try {
-    const [userExist, user] = await User.update(req.body, {
+    const user = await User.update(req.body, {
       returning: true,
       where: {
         id: req.params.id,
       },
     });
-    if (userExist !== 0) {
+    if (user !== 0) {
       return res.status(200).json({ message: "User updated", user: user });
     } else {
       return res.status(404).send("User not found");
     }
   } catch (error) {
     res.status(500).send(error.message);
+  }
+}
+
+async function updateProfile() {
+  try {
+    const user = User.update(res.locals.user.id)
+    if (user) {
+      return res.status(200).json({ message: "User updated", user: user })
+    } else {
+      return res.status(404).send("User not found");
+    }
+  } catch (error) {
+    
   }
 }
 
@@ -88,5 +101,6 @@ module.exports = {
   getProfile,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  updateProfile
 }
