@@ -1,5 +1,5 @@
 const jwt=require("jsonwebtoken")
-const User=require("../models/user")
+const User=require("../models/user.model")
 const checkAuth=(req,res,next)=>{
     if(!req.headers.authorization){
         return res.status(401).send("Need a token to continue...")

@@ -90,12 +90,30 @@ async function deleteDevice(req, res) {
 
 async function getOwnDevice(req,res){
 	try {
-		const user=await Device.findByPk(res.locals.user.id)
+		const device=await Device.findByPk(res.locals.user.id)
 		res.status(200).json(device)
 	} catch (error) {
 		res.json(error)
 	}
 }
+
+async function updateOwnDevice(req, res) {
+    try {
+      const device = await Device.update(req.body, {
+        returning: true,
+        where: {
+          id: res.locals.user.id
+        }
+      })
+      if (device!== 0) {
+        return res.status(200).json({ message: 'Device updated'})
+      } else {
+        return res.status(404).send('Device not found')
+      }
+    } catch (error) {
+      return res.status(500).send(error.message)
+    }
+  }
 
 module.exports = {
 	getAllDevices,
@@ -103,5 +121,6 @@ module.exports = {
 	createDevice,
 	updateDevice,
 	deleteDevice,
-    getOwnDevice
+    getOwnDevice,
+    updateOwnDevice
 }

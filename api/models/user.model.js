@@ -23,10 +23,7 @@ const User = connection.define("user", {
   },
   password: {
     type: DataTypes.STRING,
-    allowNull: false,
-    validate: {
-      len: [4, 12],
-    },
+    allowNull: false
   },
   phone: {
     type: DataTypes.INTEGER,
