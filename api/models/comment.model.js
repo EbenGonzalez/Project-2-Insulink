@@ -5,7 +5,7 @@ const Comment = connection.define('comment',
     {
       author_id: {
         type: DataTypes.INTEGER,
-        unique:true,
+        unique: false,
         allowNull: false
       },
       message: {
@@ -24,10 +24,11 @@ const Comment = connection.define('comment',
       },
       receiver_id: {
         type: DataTypes.INTEGER,
-        unique:true,
+        unique: false,
         allowNull: false
       },
     },
+    { timestamps: false }
   )
   
   module.exports = Comment
