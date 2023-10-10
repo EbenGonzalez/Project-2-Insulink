@@ -10,11 +10,11 @@ const {
 } = require("../controllers/user.controller")
 
 router.get('/', getAllUsers)
-router.get('/:userId', getOneUser)
+router.get('/:id', getOneUser)
 router.get('/me', getProfile) //añadir middlewares
-router.post('/:userId', createUser)
-router.put('/:userId', updateUser)
-router.delete('/:userId', deleteUser)
+router.post('/', createUser)
+router.put('/:id', updateUser)
+router.delete('/:id', deleteUser)
 
 
 module.exports = router
