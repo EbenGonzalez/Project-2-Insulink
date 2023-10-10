@@ -28,9 +28,6 @@ const Comment = connection.define('comment',
         allowNull: false
       },
     },
-    { 
-      timestamps: false 
-    }
   )
   
   module.exports = Comment
