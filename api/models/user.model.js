@@ -39,7 +39,7 @@ const User = connection.define("user", {
   },
   debut_date: {
     type: DataTypes.DATE,
-    allowNull: false,
+    allowNull: true,
   },
   role: {
     type: DataTypes.ENUM,

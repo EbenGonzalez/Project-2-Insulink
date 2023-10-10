@@ -3,7 +3,7 @@ const { connection } = require('../../database/index')
 
 const Objetive = connection.define('objetive',
     {
-      Objetive: {
+      state: {
         type: DataTypes.ENUM("good","medium","bad"),
       },
     },
