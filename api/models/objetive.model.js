@@ -3,7 +3,7 @@ const { connection } = require('../../database/index')
 
 const Objetive = connection.define('objetive',
     {
-      serial_number: {
+      Objetive: {
         type: DataTypes.ENUM("good","medium","bad"),
       },
     },
