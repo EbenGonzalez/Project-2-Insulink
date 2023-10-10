@@ -51,3 +51,6 @@ const User = connection.define("user", {
   timestamps: false
 }
 );
+
+
+module.exports = User
