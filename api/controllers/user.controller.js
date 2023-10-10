@@ -1,4 +1,4 @@
-/*const User = require('../models/user.model')
+const User = require('../models/user.model')
 
 async function getAllUser(req, res) {
   try {
@@ -89,4 +89,4 @@ module.export = {
   createUser,
   updateUser,
   deleteUser
-}*/
+}

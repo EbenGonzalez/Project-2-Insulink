@@ -88,10 +88,20 @@ async function deleteDevice(req, res) {
   }
 }
 
+async function getOwnDevice(req,res){
+	try {
+		const user=await Device.findByPk(res.locals.user.id)
+		res.status(200).json(device)
+	} catch (error) {
+		res.json(error)
+	}
+}
+
 module.exports = {
 	getAllDevices,
 	getOneDevice,
 	createDevice,
 	updateDevice,
 	deleteDevice,
+    getOwnDevice
 }
