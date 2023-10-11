@@ -31,7 +31,7 @@ METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAM
 -------|------------------|-------|------|--------------------------|-------------------------------------------------|--------------------
 GET    | /device/me            | YES   | user | See my Device Info         |                             | { device }
 GET    | /device/:userId    | YES   | doctor | See any Device Info          |                                            | { device }
-GET    | /device/all            | YES   | doctor | See all Device Info          |    `query params`                     | [{device}]
+GET    | /device           | YES   | doctor | See all Device Info          |    `query params`                     | [{device}]
 POST   | /device     | YES      | user | Create Own Device Info             |  | {device}
 POST   | /device/:userId     | YES      | doctor | Create a specific Device Info             |  | {device}
 PUT   | /device/me    | YES      | user | Update own Device Info             |                            | {message: 'Device Info have been updated'}
