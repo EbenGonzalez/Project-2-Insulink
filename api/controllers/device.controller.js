@@ -45,7 +45,6 @@ async function createDevice(req, res) {
 async function updateDevice(req, res) {
   try {
     const device = await Device.update(req.body, {
-      returning: true,
       where: {
         id: req.params.id
       }

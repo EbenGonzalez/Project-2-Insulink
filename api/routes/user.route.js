@@ -12,15 +12,16 @@ const {
   getProfile,
   createUser,
   updateUser,
-  deleteUser
+  deleteUser,
+  updateOwnProfile
 } = require("../controllers/user.controller")
 
 router.get('/', getAllUsers)
 router.get('/:id', getOneUser)
 router.get('/me', checkAuth, getProfile) //añadir middlewares
 router.post('/', createUser)
+router.put('/me', checkAuth, updateOwnProfile)
 router.put('/:id', updateUser)
-router.put('/me', checkAuth, updateUser)
 router.delete('/:id', deleteUser)
 
 
