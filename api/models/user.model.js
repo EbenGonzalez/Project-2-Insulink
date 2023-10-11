@@ -23,11 +23,7 @@ const User = connection.define("user", {
   },
   password: {
     type: DataTypes.STRING,
-<<<<<<< HEAD
     allowNull: false
-=======
-    allowNull: false,
->>>>>>> dev_robe
   },
   phone: {
     type: DataTypes.INTEGER,
