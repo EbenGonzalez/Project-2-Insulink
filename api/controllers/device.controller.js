@@ -61,8 +61,8 @@ async function updateDevice(req, res) {
         id: req.params.id
       }
     })
-    if (device!== 0) {
-      return res.status(200).json({ message: 'Device updated'})
+    if (device) {
+      return res.status(200).json('Device updated')
     } else {
       return res.status(404).send('Device not found')
     }
@@ -90,8 +90,16 @@ async function deleteDevice(req, res) {
 
 async function getOwnDevice(req,res){
 	try {
-		const device=await Device.findByPk(res.locals.user.id)
-		res.status(200).json(device)
+		const device=await Device.findOne({
+      where:{
+        userId:res.locals.user.id
+      }
+    })
+    if (device) {
+      return res.status(200).json(device)
+    } else {
+      return res.status(404).send('Device not found')
+    }
 	} catch (error) {
 		res.json(error)
 	}

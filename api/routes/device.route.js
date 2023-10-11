@@ -3,12 +3,11 @@ const { getAllDevices,getOneDevice,createDevice,updateDevice,deleteDevice,getOwn
 const{ checkAuth,checkAdmin,checkDoctor }=require("../middlewares/index")
 const{ signup,login }=require("../controllers/auth.controller")
 
-
-router.get('/all', getAllDevices)
-router.get('/:id', getOneDevice)
 router.get('/me', checkAuth, getOwnDevice)
+router.get('/all', checkAuth, checkAdmin, getAllDevices)
+router.get('/:id', checkAuth, checkAdmin, getOneDevice)
 router.post('/', createDevice)
-router.put('/:id', updateDevice)
+router.put('/:id', checkAuth, checkAdmin,updateDevice)
 router.put('/me',checkAuth,updateOwnDevice)
 router.delete('/:id', deleteDevice)
 
