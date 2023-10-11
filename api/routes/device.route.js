@@ -7,8 +7,8 @@ router.get('/me', checkAuth, getOwnDevice)
 router.get('/all', checkAuth, checkAdmin, getAllDevices)
 router.get('/:id', checkAuth, checkAdmin, getOneDevice)
 router.post('/', createDevice)
-router.put('/:id', checkAuth, checkAdmin,updateDevice)
 router.put('/me',checkAuth,updateOwnDevice)
+router.put('/:id', checkAuth, checkAdmin,updateDevice)
 router.delete('/:id', deleteDevice)
 
 module.exports = router

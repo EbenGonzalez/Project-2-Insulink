@@ -96,7 +96,7 @@ async function getOwnDevice(req,res){
       }
     })
     if (device) {
-      return res.status(200).json(device)
+      return res.status(200).json({ message: 'This Is Your Device Info',device})
     } else {
       return res.status(404).send('Device not found')
     }
@@ -107,16 +107,16 @@ async function getOwnDevice(req,res){
 
 async function updateOwnDevice(req, res) {
     try {
-      const device = await Device.update(req.body, {
-        returning: true,
+      const device = await Device.findOne({
         where: {
-          id: res.locals.user.id
+          userId: res.locals.user.id
         }
       })
+      await device.update(req.body)
       if (device!== 0) {
-        return res.status(200).json({ message: 'Device updated'})
+        return res.status(200).json({ message: 'Yor Device have been updated :)',device})
       } else {
-        return res.status(404).send('Device not found')
+        return res.status(404).send('Device not found :(')
       }
     } catch (error) {
       return res.status(500).send(error.message)
@@ -129,6 +129,6 @@ module.exports = {
 	createDevice,
 	updateDevice,
 	deleteDevice,
-    getOwnDevice,
-    updateOwnDevice
+  getOwnDevice,
+  updateOwnDevice
 }
