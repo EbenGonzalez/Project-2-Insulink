@@ -82,11 +82,7 @@ async function updateOwnProfile(req, res) {
     })
     if (user) {
       await user.update(req.body)
-<<<<<<< HEAD
-      return res.status(200).json({ message: 'Yor User has been updated :)',user})
-=======
       return res.status(200).json({ message: "User updated" })
->>>>>>> dev_robe
     } else {
       return res.status(404).send('User not found')
     }
@@ -137,10 +133,6 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
-<<<<<<< HEAD
-  updateOwnProfile
-=======
   updateOwnProfile,
   deleteOwnProfile
->>>>>>> dev_robe
 }
