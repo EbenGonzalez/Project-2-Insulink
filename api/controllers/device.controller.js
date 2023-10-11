@@ -1,4 +1,5 @@
 const Device = require('../models/device.model')
+const User = require('../models/user.model')
 
 async function getAllDevices(req, res) {
   try {
@@ -84,7 +85,7 @@ async function getOwnDevice(req,res){
     if (device) {
       return res.status(200).json({ message: 'This Is Your Device Info',device:device.serial_number})
     } else {
-      return res.status(404).send('Device not found')
+      return res.status(404).send('You have not Device Defined')
     }
 	} catch (error) {
 		res.json(error)
@@ -98,9 +99,9 @@ async function updateOwnDevice(req, res) {
           userId: res.locals.user.id
         }
       })
-      await device.update(req.body)
-      if (device!== 0) {
-        return res.status(200).json({ message: 'Yor Device have been updated :)',device:device.serial_number})
+      if (device) {
+        await device.update(req.body)
+        return res.status(200).json({ message: 'Yor Device has been updated :)',device:device.serial_number})
       } else {
         return res.status(404).send('Device not found')
       }
@@ -116,9 +117,24 @@ async function updateOwnDevice(req, res) {
           userId: res.locals.user.id
         }
       })
-      await device.destroy()
-      if (device!== 0) {
-        return res.status(200).json({ message: 'Yor Device have been deleted :exclamation:'})
+      if (device) {
+        await device.destroy()
+        return res.status(200).json({ message: 'Yor Device has been deleted'})
+      } else {
+        return res.status(404).send('Device not found')
+      }
+    } catch (error) {
+      return res.status(500).send(error.message)
+    }
+  }
+
+  async function createOwnDevice(req, res) {
+    try {
+      const user = await User.findByPk(res.locals.user.id)
+      if (user) {
+        const device = await Device.create(req.body)
+        await user.setDevice(device)
+        return res.status(200).json({ message: 'Yor Device has been created'})
       } else {
         return res.status(404).send('Device not found')
       }
@@ -135,5 +151,6 @@ module.exports = {
 	deleteDevice,
   getOwnDevice,
   updateOwnDevice,
-  deleteOwnDevice
+  deleteOwnDevice,
+  createOwnDevice
 }
