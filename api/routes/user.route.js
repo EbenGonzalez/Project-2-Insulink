@@ -9,20 +9,22 @@ checkDoctor
 const {
   getAllUsers,
   getOneUser,
-  getProfile,
+  getOwnProfile,
   createUser,
   updateUser,
   deleteUser,
-  updateOwnProfile
+  updateOwnProfile,
+  deleteOwnProfile
 } = require("../controllers/user.controller")
 
-router.get('/', getAllUsers)
-router.get('/:id', getOneUser)
-router.get('/me', checkAuth, getProfile) //añadir middlewares
-router.post('/', createUser)
+router.get('/', checkAuth, checkDoctor, getAllUsers)
+router.get('/me', checkAuth, getOwnProfile) 
+router.get('/:id', checkAuth, checkDoctor, getOneUser)
+router.post('/', checkAuth, checkAdmin, createUser)
 router.put('/me', checkAuth, updateOwnProfile)
-router.put('/:id', updateUser)
-router.delete('/:id', deleteUser)
+router.put('/:id', checkAuth, checkAdmin, updateUser)
+router.delete('/me', checkAuth, deleteOwnProfile)
+router.delete('/:id', checkAuth, checkAdmin, deleteUser)
 
 
 module.exports = router
