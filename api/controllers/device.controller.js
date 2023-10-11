@@ -33,7 +33,9 @@ async function getOneDevice(req, res) {
 
 async function createDevice(req, res) {
   try {
+    const user = await User.findByPk(req.params.id)
     const device = await Device.create(req.body)
+    await user.setDevice(device)
     return res.status(200).json({ message: 'Device created', device: device })
   } catch (error) {
     return res.status(500).send(error.message)
@@ -49,7 +51,7 @@ async function updateDevice(req, res) {
       }
     })
     if (device) {
-      return res.status(200).json('Device updated')
+     return res.status(200).json({ message: `Device with ID ${req.params.id} has been updated`})
     } else {
       return res.status(404).send('Device not found')
     }
@@ -66,7 +68,7 @@ async function deleteDevice(req, res) {
       }
     })
     if (device) {
-      return res.status(200).json('Device deleted')
+      return res.status(200).json(`Device with ID ${req.params.id} deleted`)
     } else {
       return res.status(404).send('Device not found')
     }
@@ -134,7 +136,7 @@ async function updateOwnDevice(req, res) {
       if (user) {
         const device = await Device.create(req.body)
         await user.setDevice(device)
-        return res.status(200).json({ message: 'Yor Device has been created'})
+        return res.status(200).json({ message: 'Yor Device has been created',device:device.serial_number})
       } else {
         return res.status(404).send('Device not found')
       }
