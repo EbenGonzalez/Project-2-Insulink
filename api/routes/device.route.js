@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const { getAllDevices,getOneDevice,createDevice,updateDevice,deleteDevice,getOwnDevice,updateOwnDevice } =require ("../controllers/device.controller")
+const { getAllDevices,getOneDevice,createDevice,updateDevice,deleteDevice,getOwnDevice,updateOwnDevice,deleteOwnDevice } =require ("../controllers/device.controller")
 const{ checkAuth,checkAdmin,checkDoctor }=require("../middlewares/index")
 const{ signup,login }=require("../controllers/auth.controller")
 
@@ -9,6 +9,7 @@ router.get('/:id', checkAuth, checkAdmin, getOneDevice)
 router.post('/', createDevice)
 router.put('/me',checkAuth,updateOwnDevice)
 router.put('/:id', checkAuth, checkAdmin,updateDevice)
+router.delete('/me', checkAuth, deleteOwnDevice)
 router.delete('/:id', deleteDevice)
 
 module.exports = router

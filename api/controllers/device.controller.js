@@ -1,33 +1,19 @@
 const Device = require('../models/device.model')
 
-const { Op } = require('sequelize')
-
 async function getAllDevices(req, res) {
   try {
-    if (!Object.values(req.query).length) {
-      const devices = await Device.findAll()
-      if (devices) {
-        return res.status(200).json(devices)
-      } else {
-        return res.status(404).send('No devices found')
-      }
-    } else {
-      const devices = await Device.findAll({
-        where: {
-          [Op.and]: [
-            req.query
-          ]
-        }
+    const devices = await Device.findAll(
+      {
+        where: req.query
       })
-      if (devices.length !== 0) {
-        return res.status(200).json(devices)
+      if (devices) {
+        return res.status(200).json(devices);
       } else {
-        return res.status(404).send('No matches found')
+        return res.status(404).send("No Devices found");
       }
-    }
   } catch (error) {
-    return res.status(500).send(error.message)
-  }
+    res.status(500).send(message.error)
+  } 
 }
 
 async function getOneDevice(req, res) {
@@ -96,7 +82,7 @@ async function getOwnDevice(req,res){
       }
     })
     if (device) {
-      return res.status(200).json({ message: 'This Is Your Device Info',device})
+      return res.status(200).json({ message: 'This Is Your Device Info',device:device.serial_number})
     } else {
       return res.status(404).send('Device not found')
     }
@@ -114,9 +100,27 @@ async function updateOwnDevice(req, res) {
       })
       await device.update(req.body)
       if (device!== 0) {
-        return res.status(200).json({ message: 'Yor Device have been updated :)',device})
+        return res.status(200).json({ message: 'Yor Device have been updated :)',device:device.serial_number})
       } else {
-        return res.status(404).send('Device not found :(')
+        return res.status(404).send('Device not found')
+      }
+    } catch (error) {
+      return res.status(500).send(error.message)
+    }
+  }
+
+  async function deleteOwnDevice(req, res) {
+    try {
+      const device = await Device.findOne({
+        where: {
+          userId: res.locals.user.id
+        }
+      })
+      await device.destroy()
+      if (device!== 0) {
+        return res.status(200).json({ message: 'Yor Device have been deleted :exclamation:'})
+      } else {
+        return res.status(404).send('Device not found')
       }
     } catch (error) {
       return res.status(500).send(error.message)
@@ -130,5 +134,6 @@ module.exports = {
 	updateDevice,
 	deleteDevice,
   getOwnDevice,
-  updateOwnDevice
+  updateOwnDevice,
+  deleteOwnDevice
 }

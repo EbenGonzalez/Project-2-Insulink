@@ -9,7 +9,7 @@ async function getAllUsers(req, res) {
       if (users) {
         return res.status(200).json(users);
       } else {
-        return res.status(404).send("No Riders found");
+        return res.status(404).send("No Users found");
       }
   } catch (error) {
     res.status(500).send(message.error)
