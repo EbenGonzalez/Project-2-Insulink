@@ -9,17 +9,25 @@ async function getAllUsers(req, res) {
       if (users) {
         return res.status(200).json(users);
       } else {
-        return res.status(404).send("No Riders found");
+        return res.status(404).send("No Users found");
       }
   } catch (error) {
     res.status(500).send(message.error)
   } 
 }
 
-async function getProfile(req, res) {
+async function getOwnProfile(req, res) {
   try {
-    const user = await User.findByPk(res.locals.user.id)
-    return res.status(200).json(user)
+    const user = await User.findOne({
+      where: {
+        id: res.locals.user.id
+      }
+    })
+    if (user){
+      return res.status(200).json({message: 'This is your profile', user: user})
+    } else {
+      return res.status(404).send('You have not profile')
+    }
   } catch (error) {
     res.status(500).send(error.message)
   }
@@ -31,7 +39,7 @@ async function getOneUser(req, res) {
     if(user) {
       return res.status(200).json(user);
     } else {
-      return res.status(404).send("User not found");
+      return res.status(404).send("User not found1");
     }
   } catch (error) {
     res.status(500).send(error.message);
@@ -56,7 +64,7 @@ async function updateUser(req, res) {
       },
     });
     if (user !== 0) {
-      return res.status(200).json({ message: "User updated", user: user });
+      return res.status(200).json({ message: "User updated"});
     } else {
       return res.status(404).send("User not found");
     }
@@ -65,11 +73,16 @@ async function updateUser(req, res) {
   }
 }
 
-async function updateProfile() {
+async function updateOwnProfile(req, res) {
   try {
-    const user = User.update(res.locals.user.id)
+    const user = await User.findOne({
+      where: {
+        id: res.locals.user.id
+      }
+    })
     if (user) {
-      return res.status(200).json({ message: "User updated", user: user })
+      await user.update(req.body)
+      return res.status(200).json({ message: "User updated" })
     } else {
       return res.status(404).send("User not found");
     }
@@ -95,12 +108,31 @@ async function deleteUser(req, res) {
   }
 }
 
+async function deleteOwnProfile(req, res) {
+  try {
+    const user = await User.findOne({
+      where: {
+        id: res.locals.user.id
+      }
+    })
+    if (user) {
+      await user.destroy()
+      return res.status(200).json({ message: "User updated"})
+    } else {
+      return res.status(404).send("User not found");
+    }
+  } catch (error) {
+    
+  }
+}
+
 module.exports = {
   getAllUsers,
   getOneUser,
-  getProfile,
+  getOwnProfile,
   createUser,
   updateUser,
   deleteUser,
-  updateProfile
+  updateOwnProfile,
+  deleteOwnProfile
 }
