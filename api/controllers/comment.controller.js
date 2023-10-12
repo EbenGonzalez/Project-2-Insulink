@@ -8,7 +8,7 @@ async function getAllComments(req, res) {
         where: req.query
       })
       if (comments) {
-        return res.status(200).json(comments);
+        return res.status(200).json(comments)
       } else {
         return res.status(404).send("No Comments found");
       }
@@ -163,9 +163,9 @@ module.exports = {
 	getOneComment,
 	createComment,
 	updateComment,
-    deleteComment,
-    getOwnComment,
-    updateOwnComment,
-    deleteOwnComment,
-    createOwnComment
+  deleteComment,
+  getOwnComment,
+  updateOwnComment,
+  deleteOwnComment,
+  createOwnComment
 }

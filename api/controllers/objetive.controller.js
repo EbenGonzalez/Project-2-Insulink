@@ -8,9 +8,9 @@ async function getAllObjetives(req, res) {
                 where: req.query
             })
         if (objetives) {
-            return res.status(200).json(objetives);
+            return res.status(200).json(objetives)
         } else {
-            return res.status(404).send("No Devices found");
+            return res.status(404).send("No Devices found")
         }
     } catch (error) {
         res.status(500).send(message.error)

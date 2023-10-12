@@ -8,7 +8,7 @@ async function getAllMedical(req, res) {
         where: req.query
       })
       if (medical) {
-        return res.status(200).json(medical);
+        return res.status(200).json(medical)
       } else {
         return res.status(404).send("No medical found");
       }
