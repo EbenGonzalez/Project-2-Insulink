@@ -34,7 +34,7 @@ async function getInsulin(req,res){
         for(let i=0;i<medical.length;i++){
             insulin+=medical[i].basal_insulin+medical[i].bolus_insulin
         }
-      return res.status(200).json({ message: 'This Is Your Total Insulin', insulin})
+      return res.status(200).json({ message: `This Is Patient ${req.params.id} Total Insulin`, insulin})
     } else {
       return res.status(404).send('You have not Medical Info Defined')
     }
@@ -42,7 +42,58 @@ async function getInsulin(req,res){
 		res.json(error)
 	}
 }
+
+async function getOwnRatio(req,res){
+	try {
+		const medical=await Medical.findAll({
+      where:{
+        userId:res.locals.user.id
+      }
+    })
+    if (medical) {
+        let totalCh=0
+        let totalBolus=0
+        for(let i=0;i<medical.length;i++){
+            totalCh+=medical[i].breakfast_CH+medical[i].lunch_CH+medical[i].snack_CH+medical[i].dinner_CH+medical[i].extra_CH
+            totalBolus+=medical[i].bolus_insulin
+        }
+        let ratio=totalBolus/(totalCh/10)
+      return res.status(200).json(`You need ${ratio.toFixed(2)} insulin units for each 10 carbohydrates`)
+    } else {
+      return res.status(404).send('You have not Medical Info Defined')
+    }
+	} catch (error) {
+		res.json(error)
+	}
+}
+
+async function getRatio(req,res){
+	try {
+		const medical=await Medical.findAll({
+      where:{
+        userId:req.params.id
+      }
+    })
+    if (medical) {
+        let totalCh=0
+        let totalBolus=0
+        for(let i=0;i<medical.length;i++){
+            totalCh+=medical[i].breakfast_CH+medical[i].lunch_CH+medical[i].snack_CH+medical[i].dinner_CH+medical[i].extra_CH
+            totalBolus+=medical[i].bolus_insulin
+        }
+        let ratio=totalBolus/(totalCh/10)
+      return res.status(200).json(`Patient needs ${ratio.toFixed(2)} insulin units for each 10 carbohydrates`)
+    } else {
+      return res.status(404).send('You have not Medical Info Defined')
+    }
+	} catch (error) {
+		res.json(error)
+	}
+}
+
 module.exports = {
 	getOwnInsulin,
-    getInsulin
+    getInsulin,
+    getOwnRatio,
+    getRatio
 }
