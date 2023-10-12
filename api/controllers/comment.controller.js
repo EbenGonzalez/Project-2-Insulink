@@ -22,7 +22,7 @@ async function getOneComment(req, res) {
     const comment = await Comment.findByPk(req.params.id)
 
     if (comment) {
-      return res.status(200).json(device)
+      return res.status(200).json(comment)
     } else {
       return res.status(404).send('Comment not found')
     }

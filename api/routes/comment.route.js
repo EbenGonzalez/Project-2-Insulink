@@ -3,13 +3,13 @@ const { getAllComments,getOneComment,createComment,updateComment,deleteComment,g
 const{ checkAuth,checkAdmin,checkDoctor }=require("../middlewares/index")
 
 router.get('/me', checkAuth, getOwnComment)
-router.get('/', checkAuth, checkDoctor, getAllComments)
-router.get('/:id', checkAuth, checkDoctor, getOneComment)
+router.get('/', checkAuth, checkDoctor, getAllComments)//
+router.get('/:id', checkAuth, checkDoctor, getOneComment)//
 router.post('/me', checkAuth, createOwnComment)
-router.post('/:id', checkAuth, checkDoctor, createComment)
+router.post('/', checkAuth, checkDoctor, createComment)
 router.put('/me/:id',checkAuth, updateOwnComment)
-router.put('/:id', checkAuth, checkDoctor, updateComment)
+router.put('/:id', checkAuth, checkDoctor, updateComment)//
 router.delete('/me', checkAuth, deleteOwnComment)
-router.delete('/:id', checkAuth, checkDoctor, deleteComment)
+router.delete('/:id', checkAuth, checkDoctor, deleteComment)//
 
 module.exports = router
