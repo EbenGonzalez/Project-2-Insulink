@@ -6,7 +6,7 @@ const Comment = connection.define('comment',
       author_id: {
         type: DataTypes.INTEGER,
         unique: false,
-        allowNull: false
+        //allowNull: false
       },
       message: {
         type: DataTypes.STRING,

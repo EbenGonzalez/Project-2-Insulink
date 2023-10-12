@@ -6,7 +6,7 @@ router.get('/me', checkAuth, getOwnComment)
 router.get('/', checkAuth, checkDoctor, getAllComments)//
 router.get('/:id', checkAuth, checkDoctor, getOneComment)//
 router.post('/me', checkAuth, createOwnComment)
-router.post('/', checkAuth, checkDoctor, createComment)
+router.post('/', checkAuth, checkDoctor, createComment)//
 router.put('/me/:id',checkAuth, updateOwnComment)
 router.put('/:id', checkAuth, checkDoctor, updateComment)//
 router.delete('/me', checkAuth, deleteOwnComment)
