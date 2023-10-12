@@ -78,7 +78,7 @@ async function deleteMedical(req, res) {
 
 async function getOwnMedical(req,res){
 	try {
-		const medical=await Medical.findOne({
+		const medical=await Medical.findAll({
       where:{
         userId:res.locals.user.id
       }
@@ -86,7 +86,7 @@ async function getOwnMedical(req,res){
     if (medical) {
       return res.status(200).json({ message: 'This Is Your Medical Info', medical: medical})
     } else {
-      return res.status(404).send('You have not medical Defined')
+      return res.status(404).send('You have not Medical Info Defined')
     }
 	} catch (error) {
 		res.json(error)
