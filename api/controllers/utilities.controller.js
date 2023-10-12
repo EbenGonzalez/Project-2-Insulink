@@ -91,9 +91,99 @@ async function getRatio(req,res){
 	}
 }
 
+async function getOwnResistance(req,res){
+	try {
+		const medical=await Medical.findAll({
+      where:{
+        userId:res.locals.user.id
+      }
+    })
+    if (medical) {
+        let insulin=0
+        for(let i=0;i<medical.length;i++){
+            insulin+=medical[i].basal_insulin+medical[i].bolus_insulin
+        }
+        insulin=1800/insulin
+      return res.status(200).json(`Your blood sugar drops by ${insulin.toFixed(0)} for every unit of insulin.`)
+    } else {
+      return res.status(404).send('You have not Medical Info Defined')
+    }
+	} catch (error) {
+		res.json(error)
+	}
+}
+
+async function getResistance(req,res){
+	try {
+		const medical=await Medical.findAll({
+      where:{
+        userId:req.params.id
+      }
+    })
+    if (medical) {
+        let insulin=0
+        for(let i=0;i<medical.length;i++){
+            insulin+=medical[i].basal_insulin+medical[i].bolus_insulin
+        }
+        insulin=1800/insulin
+      return res.status(200).json(`Patient blood sugar drops by ${insulin.toFixed(0)} for every unit of insulin.`)
+    } else {
+      return res.status(404).send('You have not Medical Info Defined')
+    }
+	} catch (error) {
+		res.json(error)
+	}
+}
+
+async function getOwnCh(req,res){
+	try {
+		const medical=await Medical.findAll({
+      where:{
+        userId:res.locals.user.id
+      }
+    })
+    if (medical) {
+        let totalCh=0
+        for(let i=0;i<medical.length;i++){
+            totalCh+=medical[i].breakfast_CH+medical[i].lunch_CH+medical[i].snack_CH+medical[i].dinner_CH+medical[i].extra_CH
+        }
+      return res.status(200).json(`Your total carbohydrate consumption has been:${totalCh}gr.`)
+    } else {
+      return res.status(404).send('You have not Medical Info Defined')
+    }
+	} catch (error) {
+		res.json(error)
+	}
+}
+
+async function getCh(req,res){
+	try {
+		const medical=await Medical.findAll({
+      where:{
+        userId:req.params.id
+      }
+    })
+    if (medical) {
+        let totalCh=0
+        for(let i=0;i<medical.length;i++){
+            totalCh+=medical[i].breakfast_CH+medical[i].lunch_CH+medical[i].snack_CH+medical[i].dinner_CH+medical[i].extra_CH
+        }
+      return res.status(200).json(`Patient total carbohydrate consumption has been:${totalCh}gr.`)
+    } else {
+      return res.status(404).send('You have not Medical Info Defined')
+    }
+	} catch (error) {
+		res.json(error)
+	}
+}
+
 module.exports = {
 	getOwnInsulin,
     getInsulin,
     getOwnRatio,
-    getRatio
+    getRatio,
+    getOwnResistance,
+    getResistance,
+    getOwnCh,
+    getCh
 }

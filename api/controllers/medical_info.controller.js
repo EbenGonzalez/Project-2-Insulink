@@ -1,5 +1,6 @@
 const Medical = require('../models/medical_info.model')
 const User = require('../models/user.model')
+const Objetive = require('../models/objetive.model')
 
 async function getAllMedical(req, res) {
   try {
