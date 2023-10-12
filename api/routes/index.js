@@ -6,5 +6,6 @@ router.use('/medical', require('./medical_info.route'))
 router.use('/objetive', require('./objetive.route'))
 router.use('/user', require('./user.route'))
 router.use('/auth', require('./auth.route'))
+router.use('/utilities', require('./utilities.route'))
 
 module.exports = router
