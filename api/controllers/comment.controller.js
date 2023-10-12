@@ -86,13 +86,13 @@ async function deleteComment(req, res) {
 
 async function getOwnComment(req,res){
 	try {
-		const comment=await Comment.findOne({
+		const comment=await Comment.findAll({
       where:{
         userId:res.locals.user.id
       }
     })
     if (comment) {
-      return res.status(200).json({ message: 'This are all your comments'})
+      return res.status(200).json({ message: 'This are all your comments',comment:comment})
     } else {
       return res.status(404).send('You have not any comment already')
     }
@@ -105,7 +105,8 @@ async function updateOwnComment(req, res) {
     try {
       const comment = await Comment.findOne({
         where: {
-          userId: res.locals.user.id
+          userId: res.locals.user.id,
+          id:req.params.id
         }
       })
       if (comment) {
@@ -123,14 +124,15 @@ async function updateOwnComment(req, res) {
     try {
       const comment = await Comment.findOne({
         where: {
-          userId: res.locals.user.id
+          userId: res.locals.user.id,
+          id:req.params.id
         }
       })
       if (comment) {
         await comment.destroy()
-        return res.status(200).json({ message: 'Yor Comments has been deleted'})
+        return res.status(200).json({ message: `Your Comments with ID ${req.params.id} has been deleted`})
       } else {
-        return res.status(404).send('Comments not found')
+        return res.status(404).send('Comment not found or you dont have authorization.')
       }
     } catch (error) {
       return res.status(500).send(error.message)
@@ -141,9 +143,13 @@ async function updateOwnComment(req, res) {
     try {
       const user = await User.findByPk(res.locals.user.id)
       if (user) {
-        const device = await Device.create(req.body)
-        await user.setDevice(device)
-        return res.status(200).json({ message: 'Yor Device has been created',device:device.serial_number})
+        const comment = await Comment.create({
+        author_id:user.id,
+        message:req.body.message,
+        receiver_id:req.body.receiver_id,
+        userId:user.id
+        })
+        return res.status(200).json({ message: 'Yor Comment has been created'})
       } else {
         return res.status(404).send('Device not found')
       }
