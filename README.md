@@ -48,7 +48,7 @@ GET    | /medical/me   | YES   | user | Get Own Medical Info         |          
 GET    | /medical/:medicalId        | YES   | doctor | Get One Medical Info            |                                             |  {medical_info}
 POST   | /medical            | YES   | user | Create own Medical Info        |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra` | {medical_info}
 POST   | /medical/:userId           | YES   | doctor | Create one user Medical Info        |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra` | {medical_info}
-PUT    | /medical/me    | YES   | user | Update own Medical Info       |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra`| {message: 'Medical info updated'}
+PUT    | /medical/me/medicalId    | YES   | user | Update own Medical Info       |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra`| {message: 'Medical info updated'}
 PUT    | /medical/:medicalId       | YES   | doctor | Update one Medical Info       |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra` | {message: 'Medical_info updated'}
 DELETE | /medical/:medicalId      | YES   | doctor | Delete one Medical Info       |                                                   | {message: 'Medical_info deleted'}
 DELETE | /medical/me    | YES   | user | Delete own Medical Info       |                                                    | { message: 'Medical_info deleted' }

@@ -98,7 +98,8 @@ async function updateOwnMedical(req, res) {
     try {
       const medical = await Medical.findOne({
         where: {
-          userId: res.locals.user.id
+          userId: res.locals.user.id,
+          id:req.params.id
         }
       })
       if (medical) {

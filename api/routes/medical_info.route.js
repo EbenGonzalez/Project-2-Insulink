@@ -17,18 +17,14 @@ const {
     checkAdmin, 
     checkDoctor } = require("../middlewares/index")
 
-   const { 
-    signup, 
-    login } = require("../controllers/auth.controller")
-
-router.get('/me', checkAuth, getOwnMedical)//
-router.get('/', checkAuth, checkDoctor, getAllMedical)//
-router.get('/:id', checkAuth, checkDoctor, getOneMedical)//
-router.post('/me', checkAuth, createOwnMedical)//
-router.post('/:id', checkAuth, checkDoctor, createMedical)//
-router.put('/me',checkAuth, updateOwnMedical)//
-router.put('/:id', checkAuth, checkDoctor, updateMedical)//
-router.delete('/me', checkAuth, deleteOwnMedical)//
-router.delete('/:id', checkAuth, checkDoctor, deleteMedical)//
+router.get('/me', checkAuth, getOwnMedical)
+router.get('/', checkAuth, checkDoctor, getAllMedical)
+router.get('/:id', checkAuth, checkDoctor, getOneMedical)
+router.post('/me', checkAuth, createOwnMedical)
+router.post('/:id', checkAuth, checkDoctor, createMedical)
+router.put('/me/:id',checkAuth, updateOwnMedical)
+router.put('/:id', checkAuth, checkDoctor, updateMedical)
+router.delete('/me', checkAuth, deleteOwnMedical)
+router.delete('/:id', checkAuth, checkDoctor, deleteMedical)
 
 module.exports = router
