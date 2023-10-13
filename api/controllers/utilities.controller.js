@@ -8,7 +8,7 @@ async function getOwnInsulin(req,res){
         userId:res.locals.user.id
       }
     })
-    if (medical) {
+    if (medical.length!==0) {
         let insulin=0
         for(let i=0;i<medical.length;i++){
             insulin+=medical[i].basal_insulin+medical[i].bolus_insulin
@@ -50,7 +50,7 @@ async function getOwnRatio(req,res){
         userId:res.locals.user.id
       }
     })
-    if (medical) {
+    if (medical.length!==0) {
         let totalCh=0
         let totalBolus=0
         for(let i=0;i<medical.length;i++){
@@ -98,7 +98,7 @@ async function getOwnResistance(req,res){
         userId:res.locals.user.id
       }
     })
-    if (medical) {
+    if (medical.length!==0) {
         let insulin=0
         for(let i=0;i<medical.length;i++){
             insulin+=medical[i].basal_insulin+medical[i].bolus_insulin
@@ -142,7 +142,7 @@ async function getOwnCh(req,res){
         userId:res.locals.user.id
       }
     })
-    if (medical) {
+    if (medical.length!==0) {
         let totalCh=0
         for(let i=0;i<medical.length;i++){
             totalCh+=medical[i].breakfast_CH+medical[i].lunch_CH+medical[i].snack_CH+medical[i].dinner_CH+medical[i].extra_CH
