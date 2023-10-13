@@ -147,7 +147,7 @@ async function getOwnCh(req,res){
         for(let i=0;i<medical.length;i++){
             totalCh+=medical[i].breakfast_CH+medical[i].lunch_CH+medical[i].snack_CH+medical[i].dinner_CH+medical[i].extra_CH
         }
-      return res.status(200).json(`Your total carbohydrate consumption has been:${totalCh}gr.`)
+      return res.status(200).json(`Your total carbohydrate consumption has been: ${totalCh}gr.`)
     } else {
       return res.status(404).send('You have not Medical Info Defined')
     }
@@ -168,7 +168,7 @@ async function getCh(req,res){
         for(let i=0;i<medical.length;i++){
             totalCh+=medical[i].breakfast_CH+medical[i].lunch_CH+medical[i].snack_CH+medical[i].dinner_CH+medical[i].extra_CH
         }
-      return res.status(200).json(`Patient total carbohydrate consumption has been:${totalCh}gr.`)
+      return res.status(200).json(`Patient total carbohydrate consumption has been: ${totalCh}gr.`)
     } else {
       return res.status(404).send('You have not Medical Info Defined')
     }

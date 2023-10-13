@@ -62,7 +62,7 @@ async function updateUser(req, res) {
       where: {
         id: req.params.id,
       },
-    });
+    })
     if (user !== 0) {
       return res.status(200).json({ message: "User updated"})
     } else {
@@ -97,7 +97,7 @@ async function deleteUser(req, res) {
       where: {
         id: req.params.id,
       },
-    });
+    })
     if (user) {
       return res.status(200).json("User deleted")
     } else {
