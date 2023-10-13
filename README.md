@@ -30,6 +30,7 @@ DELETE | /user/me   | YES   | user | Delete own profile       |                 
 METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
 -------|------------------|-------|------|--------------------------|-------------------------------------------------|--------------------
 GET    | /device/me            | YES   | user | See my Device Info         |                             | { device }
+GET    | /device/user/:userId    | YES   | doctor | See any User Device Info          |                                            | { device }
 GET    | /device/:deviceId    | YES   | doctor | See any Device Info          |                                            | { device }
 GET    | /device           | YES   | doctor | See all Device Info          |    `query params`                     | [{device}]
 POST   | /device     | YES      | user | Create Own Device Info             |  | {device}
@@ -73,6 +74,7 @@ METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAM
 -------|------------------|-------|------|--------------------|-------------------------------------------------|--------------------
 GET    | /objetive/me            | YES   | user | Calculate own objetive          |                             | { message: + Objetive Image }
 GET    | /objetive/:objetiveId    | YES   | doctor | See a specific objetive         |                                            | { message: + Objetive Image }
+GET    | /objetive/user/userId    | YES   | doctor | See a specific User objetive         |                                            | { Objetive }
 GET    | /objetive/all            | YES   | user | See current all objetives          |     `query params`            | [{objetives}]
 POST   | /objetive     | YES      | doctor | Create a Objetive             |  | {objetive}
 PUT   | /objetive/:objetiveId    | YES      | doctor | Update an Objetive             |                            | {message: 'Objetive have been updated'}
