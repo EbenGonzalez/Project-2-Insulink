@@ -84,7 +84,7 @@ async function getOwnMedical(req,res){
         userId:res.locals.user.id
       }
     })
-    if (medical) {
+    if (medical.length!==0) {
       return res.status(200).json({ message: 'This Is Your Medical Info', medical: medical})
     } else {
       return res.status(404).send('You have not Medical Info Defined')
@@ -136,9 +136,9 @@ async function updateOwnMedical(req, res) {
       if (user) {
         const medical = await Medical.create(req.body)
         await user.addMedical(medical)
-        return res.status(200).json({ message: 'Yor Medical has been created', medical: medical})
+        return res.status(200).json({ message: 'Your Medical has been created', medical: medical})
       } else {
-        return res.status(404).send('Medical not found')
+        return res.status(404).send('Medical Info not found')
       }
     } catch (error) {
       return res.status(500).send(error.message)

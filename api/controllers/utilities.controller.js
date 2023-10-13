@@ -177,6 +177,42 @@ async function getCh(req,res){
 	}
 }
 
+async function getOwnTime(req,res){
+	try {
+		const user=await User.findByPk(res.locals.user.id)
+    if (user) {
+      let today=new Date()
+      let debut=new Date(user.debut_date)
+      let time=today-debut
+      time=time/1000/60/60/24/365
+      time=time.toFixed(2)
+      return res.status(200).json(`Your disease has been active for ${time} years.`)
+    } else {
+      return res.status(404).send('You have not Medical Info Defined')
+    }
+	} catch (error) {
+		res.json(error)
+	}
+}
+
+async function getTime(req,res){
+	try {
+		const user=await User.findByPk(req.params.id)
+    if (user) {
+      let today=new Date()
+      let debut=new Date(user.debut_date)
+      let time=today-debut
+      time=time/1000/60/60/24/365
+      time=time.toFixed(2)
+      return res.status(200).json(`The disease of the patient with ID ${req.params.id} has been active for ${time} years.`)
+    } else {
+      return res.status(404).send('You have not Medical Info Defined')
+    }
+	} catch (error) {
+		res.json(error)
+	}
+}
+
 module.exports = {
 	getOwnInsulin,
     getInsulin,
@@ -185,5 +221,7 @@ module.exports = {
     getOwnResistance,
     getResistance,
     getOwnCh,
-    getCh
+    getCh,
+    getOwnTime,
+    getTime
 }
