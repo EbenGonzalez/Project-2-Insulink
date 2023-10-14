@@ -145,6 +145,23 @@ async function updateOwnMedical(req, res) {
     }
   }
 
+  async function getUserMedical(req,res){
+    try {
+      const medical=await Medical.findAll({
+        where:{
+          userId:req.params.id
+        }
+      })
+      if (medical.length!==0) {
+        return res.status(200).json({ message: `This Is User ID ${req.params.id} Medical Info`, medical: medical})
+      } else {
+        return res.status(404).send('You have not Medical Info Defined')
+      }
+    } catch (error) {
+      res.json(error)
+    }
+  }
+
 module.exports = {
 	getAllMedical,
 	getOneMedical,
@@ -154,5 +171,6 @@ module.exports = {
   getOwnMedical,
   updateOwnMedical,
   deleteOwnMedical,
-  createOwnMedical
+  createOwnMedical,
+  getUserMedical
 }

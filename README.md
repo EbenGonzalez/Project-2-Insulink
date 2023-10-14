@@ -46,6 +46,7 @@ METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAM
 -------|------------------|-------|------|--------------------------|-------------------------------------------------|--------------------
 GET    | /medical     | YES   | doctor | Get All Users Medical Info           |  `query params`                          | [{medical_info}]
 GET    | /medical/me   | YES   | user | Get Own Medical Info         |                                                |  {medical_info}
+GET    | /medical/user/:userId        | YES   | doctor | Get One User Medical Info            |                                             |  {medical_info}
 GET    | /medical/:medicalId        | YES   | doctor | Get One Medical Info            |                                             |  {medical_info}
 POST   | /medical            | YES   | user | Create own Medical Info        |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra` | {medical_info}
 POST   | /medical/:userId           | YES   | doctor | Create one user Medical Info        |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra` | {medical_info}
