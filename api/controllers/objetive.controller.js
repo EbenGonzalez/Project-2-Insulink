@@ -98,11 +98,15 @@ async function getOwnObjetive(req, res) {
 
 async function getOneUserObjetive(req, res) {
     try {
-        const user = await User.findByPk(req.params.id)
-        const objetive = await Objetive.findByPk(user.objetiveId)
+        const user = await User.findByPk(req.params.id,{
+            attributes: ["firstName","objetiveId"]
+        })
+        const objetive = await Objetive.findByPk(user.objetiveId,{
+            attributes: ["state"]
+        })
 
         if (objetive) {
-            return res.status(200).json(objetive)
+            return res.status(200).json({Name:user.firstName,State:objetive.state})
         } else {
             return res.status(404).send('Objetive not found')
         }
