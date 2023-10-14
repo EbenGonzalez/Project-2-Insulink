@@ -1,5 +1,6 @@
 const Objetive = require('../models/objetive.model')
 const User = require('../models/user.model')
+const Medical = require('../models/medical_info.model')
 
 async function getAllObjetives(req, res) {
     try {
@@ -82,12 +83,27 @@ async function getOwnObjetive(req, res) {
             }
         })
         if (user) {
-            const objetive = await Objetive.findOne({
-                where: {
-                    id: user.objetiveId
-                }
+            const medical=await Medical.findAll({
+                where:{
+                  userId:res.locals.user.id
+                },
+                attributes: ["good_bg"]
             })
-            return res.status(200).json({ message: 'This Is Your Objetive Info', Objetive: objetive.state })
+            let media=0
+            let objetiveId
+            for(let i=0;i<medical.length;i++){
+                media+=medical[i].good_bg
+            }
+            media=media/medical.length
+            if(media>=70){
+                objetiveId=1
+                }else if(media>=50){
+                objetiveId=2
+                }else{
+                objetiveId=3
+                }
+            const objetive = await Objetive.findByPk(objetiveId)
+            return res.status(200).json(`Based on your medical reports, your current status is: ${objetive.state} `)
         } else {
             return res.status(404).send('You have not Objetive Defined')
         }
@@ -98,15 +114,33 @@ async function getOwnObjetive(req, res) {
 
 async function getOneUserObjetive(req, res) {
     try {
-        const user = await User.findByPk(req.params.id,{
-            attributes: ["firstName","objetiveId"]
+        const user = await User.findOne({
+            where: {
+                id: req.params.id
+            }
         })
-        const objetive = await Objetive.findByPk(user.objetiveId,{
-            attributes: ["state"]
-        })
-
-        if (objetive) {
-            return res.status(200).json({Name:user.firstName,State:objetive.state})
+        if (user) {
+            const medical=await Medical.findAll({
+                where:{
+                  userId:req.params.id
+                },
+                attributes: ["good_bg"]
+            })
+            let media=0
+            let objetiveId
+            for(let i=0;i<medical.length;i++){
+                media+=medical[i].good_bg
+            }
+            media=media/medical.length
+            if(media>=70){
+                objetiveId=1
+                }else if(media>=50){
+                objetiveId=2
+                }else{
+                objetiveId=3
+                }
+            const objetive = await Objetive.findByPk(objetiveId)
+            return res.status(200).json(`Based on ${user.firstName} medical reports, his current status is: ${objetive.state} `)
         } else {
             return res.status(404).send('Objetive not found')
         }
