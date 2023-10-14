@@ -1,6 +1,7 @@
 const Objetive = require('../models/objetive.model')
 const User = require('../models/user.model')
 const Medical = require('../models/medical_info.model')
+const { Op } = require("sequelize")
 
 async function getAllObjetives(req, res) {
     try {
@@ -149,6 +150,47 @@ async function getOneUserObjetive(req, res) {
     }
 }
 
+async function getAllUsersObjetive(req, res) {
+    try {
+        const user = await User.findAll({
+            where: {
+                objetiveId: {[Op.not]: null}
+            }
+        })
+        if (user) {
+            let allUsers=[]
+            for(let i=0;i<user.length;i++){
+
+            const medical=await Medical.findAll({
+                where:{
+                  userId:user[i].id
+                },
+                attributes: ["good_bg"]
+            })
+            let media=0
+            let objetiveId
+            for(let i=0;i<medical.length;i++){
+                media+=medical[i].good_bg
+            }
+            media=media/medical.length
+            if(media>=70){
+                objetiveId=1
+                }else if(media>=50){
+                objetiveId=2
+                }else{
+                objetiveId=3
+                }
+            const objetive = await Objetive.findByPk(objetiveId)
+            allUsers.push(`Based on ${user[i].firstName} medical reports, his current status is: ${objetive.state} `)
+            }
+            return res.status(200).json(allUsers)
+        } else {
+            return res.status(404).send('Objetive not found')
+        }
+    } catch (error) {
+        return res.status(500).send(error.message)
+    }
+}
 
 module.exports = {
     getAllObjetives,
@@ -157,5 +199,6 @@ module.exports = {
     updateObjetive,
     deleteObjetive,
     getOwnObjetive,
-    getOneUserObjetive
+    getOneUserObjetive,
+    getAllUsersObjetive
 }

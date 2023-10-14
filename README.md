@@ -76,6 +76,7 @@ METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAM
 GET    | /objetive/me            | YES   | user | Calculate own objetive          |                             | { message: + Objetive Image }
 GET    | /objetive/:objetiveId    | YES   | doctor | See a specific objetive         |                                            | { message: + Objetive Image }
 GET    | /objetive/user/userId    | YES   | doctor | See a specific User objetive         |                                            | { Objetive }
+GET    | /objetive/user/all    | YES   | doctor | See a All Users objetives        |                                            | [{ Objetive }]
 GET    | /objetive/all            | YES   | user | See current all objetives          |     `query params`            | [{objetives}]
 POST   | /objetive     | YES      | doctor | Create a Objetive             |  | {objetive}
 PUT   | /objetive/:objetiveId    | YES      | doctor | Update an Objetive             |                            | {message: 'Objetive have been updated'}
