@@ -180,7 +180,7 @@ async function getCh(req,res){
 async function getOwnTime(req,res){
 	try {
 		const user=await User.findByPk(res.locals.user.id)
-    if (user) {
+    if (user.debut_date!==null) {
       let today=new Date()
       let debut=new Date(user.debut_date)
       let time=today-debut
@@ -188,7 +188,7 @@ async function getOwnTime(req,res){
       time=time.toFixed(2)
       return res.status(200).json(`Your disease has been active for ${time} years.`)
     } else {
-      return res.status(404).send('You have not Medical Info Defined')
+      return res.status(404).send('Be happy, you are not sick :)')
     }
 	} catch (error) {
 		res.json(error)
