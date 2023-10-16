@@ -1,5 +1,6 @@
 const Medical = require('../models/medical_info.model')
 const User = require('../models/user.model')
+const Objetive = require('../models/objetive.model')
 
 async function getAllMedical(req, res) {
   try {
@@ -8,7 +9,7 @@ async function getAllMedical(req, res) {
         where: req.query
       })
       if (medical) {
-        return res.status(200).json(medical);
+        return res.status(200).json(medical)
       } else {
         return res.status(404).send("No medical found");
       }
@@ -78,15 +79,15 @@ async function deleteMedical(req, res) {
 
 async function getOwnMedical(req,res){
 	try {
-		const medical=await Medical.findOne({
+		const medical=await Medical.findAll({
       where:{
         userId:res.locals.user.id
       }
     })
-    if (medical) {
+    if (medical.length!==0) {
       return res.status(200).json({ message: 'This Is Your Medical Info', medical: medical})
     } else {
-      return res.status(404).send('You have not medical Defined')
+      return res.status(404).send('You have not Medical Info Defined')
     }
 	} catch (error) {
 		res.json(error)
@@ -97,7 +98,8 @@ async function updateOwnMedical(req, res) {
     try {
       const medical = await Medical.findOne({
         where: {
-          userId: res.locals.user.id
+          userId: res.locals.user.id,
+          id:req.params.id
         }
       })
       if (medical) {
@@ -113,16 +115,15 @@ async function updateOwnMedical(req, res) {
 
   async function deleteOwnMedical(req, res) {
     try {
-      const medical = await Medical.findOne({
+      const medical = await Medical.destroy({
         where: {
           userId: res.locals.user.id
         }
       })
       if (medical) {
-        await medical.destroy()
-        return res.status(200).json({ message: 'Yor Medical has been deleted'})
+        return res.status(200).json({ message: 'Your Medical has been deleted'})
       } else {
-        return res.status(404).send('Medical not found')
+        return res.status(404).send('Medical Info not found')
       }
     } catch (error) {
       return res.status(500).send(error.message)
@@ -135,12 +136,29 @@ async function updateOwnMedical(req, res) {
       if (user) {
         const medical = await Medical.create(req.body)
         await user.addMedical(medical)
-        return res.status(200).json({ message: 'Yor Medical has been created', medical: medical})
+        return res.status(200).json({ message: 'Your Medical has been created', medical: medical})
       } else {
-        return res.status(404).send('Medical not found')
+        return res.status(404).send('Medical Info not found')
       }
     } catch (error) {
       return res.status(500).send(error.message)
+    }
+  }
+
+  async function getUserMedical(req,res){
+    try {
+      const medical=await Medical.findAll({
+        where:{
+          userId:req.params.id
+        }
+      })
+      if (medical.length!==0) {
+        return res.status(200).json({ message: `This Is User ID ${req.params.id} Medical Info`, medical: medical})
+      } else {
+        return res.status(404).send('You have not Medical Info Defined')
+      }
+    } catch (error) {
+      res.json(error)
     }
   }
 
@@ -153,5 +171,6 @@ module.exports = {
   getOwnMedical,
   updateOwnMedical,
   deleteOwnMedical,
-  createOwnMedical
+  createOwnMedical,
+  getUserMedical
 }

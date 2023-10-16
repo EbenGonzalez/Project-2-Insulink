@@ -28,7 +28,7 @@ const User = connection.define("user", {
   phone: {
     type: DataTypes.INTEGER,
     unique: true,
-    allowNull: false,
+    allowNull: false
   },
   birth_date: {
     type: DataTypes.DATE,
