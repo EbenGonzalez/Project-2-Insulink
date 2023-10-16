@@ -14,7 +14,8 @@ const {
   updateUser,
   deleteUser,
   updateOwnProfile,
-  deleteOwnProfile
+  deleteOwnProfile,
+  updatePassword
 } = require("../controllers/user.controller")
 
 router.get('/', checkAuth, checkDoctor, getAllUsers)
@@ -23,6 +24,7 @@ router.get('/:id', checkAuth, checkDoctor, getOneUser)
 router.post('/', checkAuth, checkAdmin, createUser)
 router.put('/me', checkAuth, updateOwnProfile)
 router.put('/:id', checkAuth, checkAdmin, updateUser)
+// router.put('/password/me', checkAuth, updatePassword)
 router.delete('/me', checkAuth, deleteOwnProfile)
 router.delete('/:id', checkAuth, checkAdmin, deleteUser)
 

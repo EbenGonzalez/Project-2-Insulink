@@ -60,7 +60,8 @@ DELETE | /medical/me    | YES   | user | Delete own Medical Info       |        
 METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
 -------|------------------|-------|------|--------------------|-------------------------------------------------|--------------------
 GET   | /comment     | YES     | doctor | Get all Comments              |  `query params`  | [{comments}]
-GET   | /comment/me     | YES      | user | Get own Comments               |                            | [{comments}]
+GET   | /comment/inbox/me     | YES      | user | Get own Comments (receiver)              |                            | [{comments}]
+GET   | /comment/send/me     | YES      | user | Get own Comments (author)             |                            | [{comments}]
 GET   | /comment/:commentId     | YES      | doctor | Get a specific Comment               |                            | [{comments}]
 POST   | /comment/me     | YES      | user | Create own comment              |  | {comment}
 POST   | /comment   | YES      | doctor | Create a comment              |  | {comment}
