@@ -80,7 +80,8 @@ async function getOwnObjetive(req, res) {
     try {
         const user = await User.findOne({
             where: {
-                id: res.locals.user.id
+                id: res.locals.user.id,
+                objetiveId: {[Op.not]: null}
             }
         })
         if (user) {
@@ -91,20 +92,18 @@ async function getOwnObjetive(req, res) {
                 attributes: ["good_bg"]
             })
             let media=0
-            let objetiveId
             for(let i=0;i<medical.length;i++){
                 media+=medical[i].good_bg
             }
             media=media/medical.length
             if(media>=70){
-                objetiveId=1
+                 res.status(200).sendFile("/home/eben/code/lab2/Proyecto-2-API-REST/public/images/111.png")
+                 
                 }else if(media>=50){
-                objetiveId=2
+                    return res.status(200).sendFile("/home/eben/code/lab2/Proyecto-2-API-REST/public/images/222.png")
                 }else{
-                objetiveId=3
+                    return res.status(200).sendFile("/home/eben/code/lab2/Proyecto-2-API-REST/public/images/333.png")
                 }
-            const objetive = await Objetive.findByPk(objetiveId)
-            return res.status(200).json(`Based on your medical reports, your current status is: ${objetive.state} `)
         } else {
             return res.status(404).send('You have not Objetive Defined')
         }

@@ -129,28 +129,32 @@ async function deleteOwnProfile(req, res) {
   }
 }
 
-// async function updatePassword(req, res) {
-//   const { curretnPassWord, newPassword } = req.body
-//   const token = req.header('authorization')
-//   console.log(token)
-//   if (!token) {
-//     return res.status(401).json( {error: 'Access denied, you must log in'})
-//   }
-//   try {
-//     const decodedToken = jwt.verify(token, process.env.SECRET, async (err, result) => {
-//      if (err) return res.status(400).json({error: 'The current password is not valid'})
-//     })
-//     const user = await User.findByPk(decodedToken.user.id)
-//     console.log(user)
-//       if (await bcrypt.compareSync(curretnPassWord, user.password)) {
-//         await bcrypt.hashSync(newPassword, 10)
-//         await user.save()
-//         return res.status(200).json({message: 'Password changed'})
-//     } 
-//    } catch (error) {
-//     res.status(500).send({error: "fatal"})
-//   }
-// }
+async function changePassword(req, res) {
+  try {
+    const user = await User.findOne({
+      where: {
+        id: res.locals.user.id
+      }
+    })
+    if (user){
+      const comparePass = bcrypt.compareSync(req.body.currentPassword, user.password)
+      if (comparePass) {
+        const saltRounds= bcrypt.genSaltSync(process.env.ROUND)
+      const hashedPassword = bcrypt.hashSync(req.body.newPassword, saltRounds)
+      req.body.newPassword = hashedPassword
+      user.password=hashedPassword
+      user.save()
+      return res.status(200).send("Your password has been changed successfully.")
+      } else {
+        return res.status(404).json('Error: Wrong Old password')
+      }
+    } else {
+      return res.status(404).send('You have not profile')
+    }
+  } catch (error) {
+    res.status(500).send(error.message)
+  }
+}
 
 module.exports = {
   getAllUsers,
@@ -161,5 +165,5 @@ module.exports = {
   deleteUser,
   updateOwnProfile,
   deleteOwnProfile,
-  // updatePassword
+  changePassword
 }
