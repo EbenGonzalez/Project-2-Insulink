@@ -15,7 +15,7 @@ const {
   deleteUser,
   updateOwnProfile,
   deleteOwnProfile,
-  changePassword
+  changePassword,
 } = require("../controllers/user.controller")
 
 router.get('/', checkAuth, checkDoctor, getAllUsers)
