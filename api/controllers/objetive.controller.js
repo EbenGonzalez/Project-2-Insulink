@@ -97,12 +97,12 @@ async function getOwnObjetive(req, res) {
             }
             media=media/medical.length
             if(media>=70){
-                 res.status(200).sendFile("/home/eben/code/lab2/Proyecto-2-API-REST/public/images/111.png")
+                 res.status(200).sendFile("/home/eben/code/lab2/Proyecto-2-API-REST/public/images/bien.png")
                  
                 }else if(media>=50){
-                    return res.status(200).sendFile("/home/eben/code/lab2/Proyecto-2-API-REST/public/images/222.png")
+                    return res.status(200).sendFile("/home/eben/code/lab2/Proyecto-2-API-REST/public/images/medio.png")
                 }else{
-                    return res.status(200).sendFile("/home/eben/code/lab2/Proyecto-2-API-REST/public/images/333.png")
+                    return res.status(200).sendFile("/home/eben/code/lab2/Proyecto-2-API-REST/public/images/mal.png")
                 }
         } else {
             return res.status(404).send('You have not Objetive Defined')

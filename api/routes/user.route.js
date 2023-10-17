@@ -24,7 +24,7 @@ router.get('/:id', checkAuth, checkDoctor, getOneUser)
 router.post('/', checkAuth, checkAdmin, createUser)
 router.put('/me', checkAuth, updateOwnProfile)
 router.put('/:id', checkAuth, checkAdmin, updateUser)
-router.put('/password/me', checkAuth, changePassword)
+router.put('/password', checkAuth, changePassword)
 router.delete('/me', checkAuth, deleteOwnProfile)
 router.delete('/:id', checkAuth, checkAdmin, deleteUser)
 
