@@ -6,7 +6,7 @@ require("dotenv").config();
 
 async function signup (req, res){
   try {
-    const saltRounds= bcrypt.genSaltSync()
+    const saltRounds= bcrypt.genSaltSync(process.env.ROUND)
     const hashedPassword = bcrypt.hashSync(req.body.password, saltRounds)
     req.body.password = hashedPassword
    

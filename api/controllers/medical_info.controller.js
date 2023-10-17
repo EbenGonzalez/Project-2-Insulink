@@ -37,6 +37,14 @@ async function createMedical(req, res) {
     const user = await User.findByPk(req.params.id)
     const medical = await Medical.create(req.body)
     await user.addMedical(medical)
+    if(medical.good_bg>=70){
+      user.objetiveId=1
+      }else if(medical.good_bg>=50){
+      user.objetiveId=2
+      }else{
+      user.objetiveId=3
+      }
+      user.save()
     return res.status(200).json({ message: 'Medical created', medical: medical, user: user.firstName })
   } catch (error) {
     return res.status(500).send(error.message)
@@ -136,6 +144,14 @@ async function updateOwnMedical(req, res) {
       if (user) {
         const medical = await Medical.create(req.body)
         await user.addMedical(medical)
+        if(medical.good_bg>=70){
+          user.objetiveId=1
+          }else if(medical.good_bg>=50){
+          user.objetiveId=2
+          }else{
+          user.objetiveId=3
+          }
+          user.save()
         return res.status(200).json({ message: 'Your Medical has been created', medical: medical})
       } else {
         return res.status(404).send('Medical Info not found')
