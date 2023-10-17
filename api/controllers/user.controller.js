@@ -156,6 +156,8 @@ async function changePassword(req, res) {
   }
 }
 
+
+
 module.exports = {
   getAllUsers,
   getOneUser,
@@ -165,5 +167,5 @@ module.exports = {
   deleteUser,
   updateOwnProfile,
   deleteOwnProfile,
-  changePassword
+  changePassword,
 }
