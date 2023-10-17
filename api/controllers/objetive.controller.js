@@ -97,12 +97,12 @@ async function getOwnObjetive(req, res) {
             }
             media=media/medical.length
             if(media>=70){
-                 res.status(200).sendFile("/public/images/bien.png")
+                 res.status(200).sendFile("bien.png",{root:'public/images'})
                  
                 }else if(media>=50){
-                    return res.status(200).sendFile("/public/images/medio.png")
+                    return res.status(200).sendFile("medio.png",{root:'public/images'})
                 }else{
-                    return res.status(200).sendFile("/public/images/mal.png")
+                    return res.status(200).sendFile("mal.png",{root:'public/images'})
                 }
         } else {
             return res.status(404).send('You have not Objetive Defined')
