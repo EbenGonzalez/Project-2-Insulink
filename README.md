@@ -1,100 +1,40 @@
-# API
 
-### Authentication Endpoints
+# 💊 Insulink
 
-The Authentication flow for the application is:
+**Insulink** es una pequeña API que le permite en base a los informes proporcionados por su bomba de insulina, generar información en lo referente a las cantidades de hidratos e insulina consumidos, resistencias y varias utilidades mas, como por ejemplo permitir al medico a cargo llevar un control sobre el estado actual de la enfermedad de los usuarios. 🏥
 
-### User Signup/Login
+## 🚀 Tecnologías utilizadas
 
-METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
--------|------------------|-------|------|--------------------|-------------------------------------------------|--------------------
-POST   | /auth/signup     | -     | user | User Signup              | `firstName`,`lastName`, `email`, `password`, `phone`, `birth_Date` , `debut_date`  | { token: `token` }
-POST   | /auth/login      | -     | user | User Login               | `email`, `password`                             | { token: `token` }
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white)
+![JWT](https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=jsonwebtokens&logoColor=white)
+![Sequelize](https://img.shields.io/badge/Sequelize-52B0E7?style=for-the-badge&logo=sequelize&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-005C84?style=for-the-badge&logo=mysql&logoColor=white)
+![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=postman&logoColor=white)
+![VSCode](https://img.shields.io/badge/VS%20Code-007ACC?style=for-the-badge&logo=visualstudiocode&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=git&logoColor=white)
+![GitHub](https://img.shields.io/badge/GitHub-181717?style=for-the-badge&logo=github&logoColor=white)
 
-### User Endpoints
 
-METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
--------|------------------|-------|------|--------------------------|-------------------------------------------------|--------------------
-GET    | /user            | YES   | doctor | Get All Users            |  `query params`                            | [{user}]
-GET    | /user/me    | YES   | user | Get Own Profile          |                                                |  {user}
-GET    | /user/:userId        | YES   | doctor | Get One User             |                                             |  {user}
-POST   | /user            | YES   | admin | Create one user         |`firstName`,`lastName`, `email`, `password`, `phone`, `birth_Date` , `debut_date` | {user}
-PUT    | /user/me    | YES   | user | Update own profile       |`firstName`,`lastName`, `email`, `password`, `phone`, `birth_Date` , `debut_date` | {message: 'Profile updated'}
-PUT    | /user/password   | YES   | user  | Reset password          | `newPassword` `repeatPassword`                                    | { message: 'Password updated }
-PUT    | /user/:userId       | YES   | admin | Update one user         |  `firstName`,`lastName`, `email`, `password`, `phone`, `birth_Date` , `debut_date` | {message: 'User updated'}
-DELETE | /user/:userId      | YES   | admin | Delete one user         |                                                   | {message: 'User deleted'}
-DELETE | /user/me   | YES   | user | Delete own profile       |                                                    | { message: 'Profile deleted' }
+## 🎯 Funcionalidades principales
 
-### Device Endpoints
+- ✅ Registro e inicio de sesión de usuarios
+- ✅ Gestión de perfiles
+- ✅ Gestión de dispositivos
+- ✅ Sección de comentarios
+- ✅ Cálculo de objetivos
+- ✅ Estadísticas varias en base a los informes
 
-METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
--------|------------------|-------|------|--------------------------|-------------------------------------------------|--------------------
-GET    | /device/me            | YES   | user | See my Device Info         |                             | { device }
-GET    | /device/user/:userId    | YES   | doctor | See any User Device Info          |                                            | { device }
-GET    | /device/:deviceId    | YES   | doctor | See any Device Info          |                                            | { device }
-GET    | /device           | YES   | doctor | See all Device Info          |    `query params`                     | [{device}]
-POST   | /device     | YES      | user | Create Own Device Info             |  | {device}
-POST   | /device/:userId     | YES      | doctor | Create a specific Device Info             |  | {device}
-PUT   | /device/me    | YES      | user | Update own Device Info             |                            | {message: 'Device Info have been updated'}
-PUT   | /device/:deviceId    | YES      | doctor | Update a specific Device Info             |                            | {message: 'Device Info have been updated'}
-DELETE   | /device/me    | YES      | user | Delete own Device Info          |                            | {message: 'Device Info have been deleted'}
-DELETE   | /device/:deviceId    | YES      | doctor | Delete a specific Device Info          |                            | {message: 'Device Info have been deleted'}
 
-### Medical Info Endpoints
+## 👨‍💻 Autor
 
-METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
--------|------------------|-------|------|--------------------------|-------------------------------------------------|--------------------
-GET    | /medical     | YES   | doctor | Get All Users Medical Info           |  `query params`                          | [{medical_info}]
-GET    | /medical/me   | YES   | user | Get Own Medical Info         |                                                |  {medical_info}
-GET    | /medical/user/:userId        | YES   | doctor | Get One User Medical Info            |                                             |  {medical_info}
-GET    | /medical/:medicalId        | YES   | doctor | Get One Medical Info            |                                             |  {medical_info}
-POST   | /medical            | YES   | user | Create own Medical Info        |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra` | {medical_info}
-POST   | /medical/:userId           | YES   | doctor | Create one user Medical Info        |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra` | {medical_info}
-PUT    | /medical/me/medicalId    | YES   | user | Update own Medical Info       |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra`| {message: 'Medical info updated'}
-PUT    | /medical/:medicalId       | YES   | doctor | Update one Medical Info       |`pump_model`, `basal_insulin`, `bolus_insulin`, `good_sv`, `high_sv`, `low_sv` , `breakfast`, `luch`, `snack`, `dinner`, `extra` | {message: 'Medical_info updated'}
-DELETE | /medical/:medicalId      | YES   | doctor | Delete one Medical Info       |                                                   | {message: 'Medical_info deleted'}
-DELETE | /medical/me    | YES   | user | Delete own Medical Info       |                                                    | { message: 'Medical_info deleted' }
+**Ebén González de la Cruz**
 
-### Comment Endpoints
+📧 ebencito88@gmail.com
 
-METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
--------|------------------|-------|------|--------------------|-------------------------------------------------|--------------------
-GET   | /comment     | YES     | doctor | Get all Comments              |  `query params`  | [{comments}]
-GET   | /comment/inbox/me     | YES      | user | Get own Comments (receiver)              |                            | [{comments}]
-GET   | /comment/send/me     | YES      | user | Get own Comments (author)             |                            | [{comments}]
-GET   | /comment/:commentId     | YES      | doctor | Get a specific Comment               |                            | [{comments}]
-POST   | /comment/me     | YES      | user | Create own comment              |  | {comment}
-POST   | /comment   | YES      | doctor | Create a comment              |  | {comment}
-PUT   | /comment/me/:commentId    | YES      | user | Update own comment              |                            | {message: 'Your comment have been updated'}
-PUT   | /comment/:commentId    | YES      | doctor | Update a specific comment              |                            | {message: 'The comment have been updated'}
-DELETE   | /comment/me/:commentId    | YES      | user | Delete own comment             |                            | {message: 'Comment deleted'}
-DELETE   | /comment/:commentId     | YES      | doctor | Delete a specific comment             |                            | {message: 'Comment deleted'}
+🌐 https://github.com/EbenGonzalez
 
-### Objetive Endpoints
-
-METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
--------|------------------|-------|------|--------------------|-------------------------------------------------|--------------------
-GET    | /objetive/me            | YES   | user | Calculate own objetive          |                             | { message: + Objetive Image }
-GET    | /objetive/:objetiveId    | YES   | doctor | See a specific objetive         |                                            | { message: + Objetive Image }
-GET    | /objetive/user/userId    | YES   | doctor | See a specific User objetive         |                                            | { Objetive }
-GET    | /objetive/user/all    | YES   | doctor | See a All Users objetives        |                                            | [{ Objetive }]
-GET    | /objetive/all            | YES   | user | See current all objetives          |     `query params`            | [{objetives}]
-POST   | /objetive     | YES      | doctor | Create a Objetive             |  | {objetive}
-PUT   | /objetive/:objetiveId    | YES      | doctor | Update an Objetive             |                            | {message: 'Objetive have been updated'}
-DELETE   | /objetive/:objetiveId    | YES      | doctor | Delete a specific Objetive          |                            | {message: 'Objetive deleted'}
-
-### Utilities Endpoints
-
-METHOD | ENDPOINT         | TOKEN | ROLE | DESCRIPTION              | POST PARAMS                                     | RETURNS
--------|------------------|-------|------|--------------------------|-------------------------------------------------|--------------------
-GET    | /insulin/me            | YES   | user | Calculate own total insulin          |                             | { message: "Your total insulin is:" }
-GET    | /insulin/:userId    | YES   | doctor | Calculate user id total insulin          |                                            | { message: "User id total insulin is:" }
-GET    | /ratio/me            | YES   | user | Calculate own ratio          |                             | { message: "Your ratio is:" }
-GET    | /ratio/:userId    | YES   | doctor | Calculate user id ratio          |                                            | { message: "User id ratio is:" }
-GET    | /resistance/me       | YES   | user | Calculate own insulin resistance          |                                            | { message: "Your insulin resistance is:" }
-GET    | /resistance/:userId    | YES   | doctor | Calculate user id insulin resistance   |                                            |  { message: "User id insulin resistance is:" }
-GET    | /ch/me            | YES   | user | Calculate total CH          |                             | { message: "The carbohydrates you have consumed are:" }
-GET    | /ch/id    | YES   | doctor | Calculate user id total CH          |                                            | { message: "The carbohydrates user id have consumed are:" }
-GET    | /time/me            | YES   | user | Calculate how long user have been receiving treatment         |                             | { message: "You have been receiving treatment for:" }
-GET    | /time/:userId    | YES   | doctor | Calculate how long (user id) have been receiving treatment|                                            | { message: "User id have been receiving treatment for:" }
-
+💼 https://www.linkedin.com/in/ebendev/
